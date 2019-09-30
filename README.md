@@ -28,3 +28,7 @@ To remove helper
 ```
 git config --unset credential.helper
 ```
+
+# Links
+
+- https://github.com/njvrzm/git-credential-shell
