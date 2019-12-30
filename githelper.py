@@ -14,9 +14,10 @@ key_id = os.getcwd()
 
 
 def get_options(args):
-    parser = argparse.ArgumentParser(description="Parses command.")
-    parser.add_argument('-l', '--list', action='store_true', help="List credentials.")
-    parser.add_argument('-r', '--remove', action='store_true', help="Remove current credential.")
+    parser = argparse.ArgumentParser(description="Parses command")
+    parser.add_argument('-l', '--list', action='store_true', help="List credentials")
+    parser.add_argument('-r', '--remove', action='store_true', help="Remove credential")
+    parser.add_argument('-c', '--credential', type=str, help="Credential ID to remove")
     options = parser.parse_args(args)
     return options
 
@@ -27,18 +28,24 @@ if __name__ == '__main__':
     final_error = ''
 
     try:
+
         data = shelve.open(credentials_path, writeback=True)
         os.chmod(credentials_path, 0o600)
 
         if arguments.remove:
-            key_exists = key_id in data
-            if key_exists:
-                final_error = "Error deleting credential"
-                del data[key_id]
-                subprocess.run(["git", "config", "--unset", "credential.helper"])
-                print("Credential for " + key_id + " deleted")
+            final_error = "Error deleting credential"
+            if arguments.credential is None:
+                key_searched = key_id
             else:
-                print("Credential for " + key_id + " doesn't exists")
+                key_searched = arguments.credential
+
+            key_exists = key_searched in data
+            if key_exists:
+                del data[key_searched]
+                subprocess.run(["git", "config", "--unset", "credential.helper"], cwd=key_searched)
+                print("Credential for " + key_searched + " deleted")
+            else:
+                print("Credential for " + key_searched + " doesn't exists")
 
         if arguments.list:
             final_error = 'Error listing credentials'
@@ -57,7 +64,9 @@ if __name__ == '__main__':
                 password = getpass("Password: ")
                 data[key_id] = username + ';' + password
                 subprocess.run(["git", "config", "credential.helper", "shell"])
-    except:
+
+    except Exception as e:
+        print("Some exception occurred: " + e)
         sys.exit(final_error)
     finally:
         data.close()

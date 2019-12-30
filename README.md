@@ -20,10 +20,16 @@ githelper
 
 The helper will create the file `$HOME/.githelperdata` to store the credential, it will use the path of the current directory as ID
 
-- To remove credential and helper from a git repo:
+- To remove credential and helper from current git repo:
 
 ```
 githelper -r
+```
+
+- To remove credential and helper from specific git repo, you can use `-l` to get the list of repos:
+
+```
+githelper -r -c /path/to/repo
 ```
 
 - To list all the credentials stored:
@@ -37,7 +43,7 @@ githelper -l
 - ~~List credentials~~
 - Encrypt git credentials
 - ~~Delete credential from current repo~~
-- Delete credential from repo using ID
+- ~~Delete credential from repo using ID~~
 
 # Links
 
