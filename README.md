@@ -12,7 +12,7 @@ chmod 755 installer.sh && ./installer.sh
 
 # Usage
 
-To configure credential input the username and password in the working copy of a git repo
+- To configure credential input the username and password in the working copy of a git repo
 
 ```
 githelper
@@ -20,13 +20,13 @@ githelper
 
 The helper will create the file `$HOME/.githelperdata` to store the credential, it will use the path of the current directory as ID
 
-To remove helper from a git repo:
+- To remove credential and helper from a git repo:
 
 ```
-git config --unset credential.helper
+githelper -r
 ```
 
-To list all the credentials stored:
+- To list all the credentials stored:
 
 ```
 githelper -l
@@ -36,7 +36,8 @@ githelper -l
 
 - ~~List credentials~~
 - Encrypt git credentials
-- Delete credential from current repo
+- ~~Delete credential from current repo~~
+- Delete credential from repo using ID
 
 # Links
 
