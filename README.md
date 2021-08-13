@@ -1,6 +1,6 @@
 # Overview
 
-...
+Utility to configure and store credentials of HTTPS repos
 
 # Install
 
@@ -12,7 +12,7 @@ chmod 755 installer.sh && ./installer.sh
 
 # Usage
 
-- To configure credential input the username and password in the working copy of a git repo
+- To configure credential input the username and password/token in the working copy of a git repo
 
 ```
 githelper
